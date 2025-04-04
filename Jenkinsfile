@@ -36,15 +36,24 @@ pipeline{
                 }
             }
         }
-        stage('Terraform plan'){
+        stage('Terraform Init') {
             steps {
-                echo 'Creating Terraform execution plan...'
+                echo "Initializing Terraform in ${env.TF_DIR}..."
                 dir("${env.TF_DIR}") {
                     withCredentials([aws(credentialsId: 'aws-credentials')]) {
-                        sh "terraform plan -out=tfplan"
+                        // AWS_* vars sẽ được inject tự động
+                        // Sử dụng cấu hình backend từ file backend.tf
+                        sh 'terraform init'
+                        // Nếu không dùng backend.tf, bạn có thể cấu hình ở đây:
+                        // sh '''
+                        //    terraform init \
+                        //    -backend-config="bucket=your-terraform-state-bucket-name" \
+                        //    -backend-config="key=project/ec2-tls/terraform.tfstate" \
+                        //    -backend-config="region=${AWS_REGION}" \
+                        //    -backend-config="dynamodb_table=your-terraform-lock-table-name"
+                        // '''
                     }
                 }
-                archiveArtifacts artifacts: "${env.TF_DIR}/tfplan"
             }
         }
         stage('Terraform Apply') {
