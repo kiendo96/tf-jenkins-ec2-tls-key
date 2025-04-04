@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Terraform Website</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f0f0; text-align: center; padding-top: 50px; }
+        h1 { color: #333; }
+        p { color: #555; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chào mừng đến với Website được triển khai bằng Terraform & Jenkins!</h1>
+        <p>Hạ tầng (VPC & S3 Bucket) được tạo tự động.</p>
+        <p>Chúc mừng bạn đã hoàn thành project CI/CD đơn giản!</p>
+        <p id="timestamp"></p>
+    </div>
+    <script>
+        document.getElementById('timestamp').innerText = 'Deployed at: ' + new Date().toLocaleString();
+    </script>
+</body>
+</html>
