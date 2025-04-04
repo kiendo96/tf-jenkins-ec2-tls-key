@@ -88,9 +88,11 @@ pipeline {
                             echo "EC2 Instance Public IP: ${env.INSTANCE_IP}"
                             echo "Website URL: ${env.WEBSITE_URL}"
                             echo "-----------------------------------------------------"
-                            archiveArtifacts artifacts: 'instance_ip.txt, website_url.txt, private_key.pem'
                         }
                     }
+                }
+                dir('') {
+                    archiveArtifacts artifacts: 'instance_ip.txt, website_url.txt, private_key.pem'
                 }
             }
         }
