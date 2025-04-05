@@ -76,15 +76,15 @@ resource "aws_security_group" "allow_web_ssh" {
 }
 
 # generate ssh key
-resource "tls_private_key" "generated_ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+# resource "tls_private_key" "generated_ssh_key" {
+#   algorithm = "RSA"
+#   rsa_bits  = 4096
+# }
 
-resource "aws_key_pair" "generated_key_pair" {
-  key_name   = var.key_pair_name
-  public_key = tls_private_key.generated_ssh_key.public_key_openssh
-}
+# resource "aws_key_pair" "generated_key_pair" {
+#   key_name   = var.key_pair_name
+#   public_key = tls_private_key.generated_ssh_key.public_key_openssh
+# }
 
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
@@ -104,7 +104,7 @@ resource "aws_instance" "web_server" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.allow_web_ssh.id]
-  key_name               = aws_key_pair.generated_key_pair.key_name
+  # key_name               = aws_key_pair.generated_key_pair.key_name
 
   # User data script to install and start Apache
   user_data = <<-EOF

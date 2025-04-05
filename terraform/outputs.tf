@@ -28,13 +28,13 @@ output "website_url" {
   value       = "http://${aws_instance.web_server.public_dns}"
 }
 
-output "private_key_pem" {
-  description = "Generated Private Key in PEM format"
-  value       = tls_private_key.generated_ssh_key.private_key_pem
-  sensitive   = true
-}
+# output "private_key_pem" {
+#   description = "Generated Private Key in PEM format"
+#   value       = tls_private_key.generated_ssh_key.private_key_pem
+#   sensitive   = true
+# }
 
-output "key_pair_name_output" {
-  description = "Name of the key pair created in AWS"
-  value       = aws_key_pair.generated_key_pair.key_name
-}
+# output "key_pair_name_output" {
+#   description = "Name of the key pair created in AWS"
+#   value       = aws_key_pair.generated_key_pair.key_name
+# }
